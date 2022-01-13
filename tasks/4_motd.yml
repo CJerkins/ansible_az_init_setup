@@ -1,0 +1,33 @@
+---
+- name: Install neofetch
+  package:
+    name: neofetch
+
+# - name: mkdir config
+#   file:
+#     path: /home/{{ item.name | default(ansible) }}/.config/neofetch
+#     state: directory
+
+#   with_items: "{{ github_users }}"
+
+- name: mkdir config
+  file:
+    path: /root/.config/neofetch
+    state: directory
+
+# - name: Copy config 
+#   copy:
+#     src: files/neofetch.conf
+#     dest: /home/{{ item.name | default(ansible) }}/.config/neofetch/config.conf
+#   with_items: "{{ github_users }}"
+
+- name: Copy config 
+  copy:
+    src: files/neofetch.conf
+    dest: ~/.config/neofetch/config.conf
+
+- name: Insert a line at the end of a file.
+  lineinfile:
+    path: /etc/profile
+    line: neofetch
+

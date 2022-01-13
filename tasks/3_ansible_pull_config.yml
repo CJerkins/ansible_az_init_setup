@@ -1,0 +1,16 @@
+---
+- name: Ensure a job that runs at every 30 exists.
+  become_user: ansible
+  ansible.builtin.cron:
+    name: "{{ cron_current_job_name }}"
+    user: ansible
+    minute: "*"
+    hour: "*"
+    job: "{{ cron_job }}"
+    # cron_file: ansible_pull_update
+
+- name: 'Ensure an old job is no longer present. Removes any job that is prefixed by "#Ansible: an old job" from the crontab'
+  become_user: ansible
+  ansible.builtin.cron:
+    name: "{{ cron_old_job_name }}"
+    state: absent

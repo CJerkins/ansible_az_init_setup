@@ -1,0 +1,32 @@
+# /bin/bash
+ansible-galaxy install geerlingguy.github-users
+read -p "Enter your enter a domain: " domain
+export domain=$domain
+
+# Docker varibles
+read -p "Are you going to use docker?(y/n)" answer_docker
+case $answer_docker in
+  y)
+    ansible-galaxy install geerlingguy.docker
+    ;;
+  n)
+    break
+    ;;
+  *)
+    ;;
+esac
+
+# zerotier varibles
+read -p "Are you going to use zerotier?(y/n)" answer_zero
+case $answer_zero in
+  y)
+    ansible-galaxy install m4rcu5nl.zerotier-one
+    read -p "Enter your zerotier network id: " zerotier_network_id
+    read -p "Enter your zerotier api accesstoken: " zerotier_api_accesstoken
+    ;;
+  n)
+    break
+    ;;
+  *)
+    ;;
+esac

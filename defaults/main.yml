@@ -1,0 +1,42 @@
+---
+## 0_update.yml ##
+keep_packages_updated: true
+
+## 1_adduser ##
+init_setup_CentOS_users:
+- username:
+    - ansible
+  groups: 
+    - "wheel"
+init_setup_Ubuntu_users:
+- username:
+    - ansible
+  groups: 
+    - "admin"
+sshkey_url: 
+
+# init_setup_ssh_public_key: 
+
+
+
+## 2_install ##
+init_setup_common_packages:
+  - chrony
+  - git
+  - ansible
+init_setup_additional_packages: []
+
+## 3_ansible_pull_config ##
+cron_current_job_name: 
+cron_old_job_name:
+cron_job:
+
+## -- Logging setup -- ##
+init_setup_use_log: false
+init_setup_use_motd: true
+
+
+
+
+
+  

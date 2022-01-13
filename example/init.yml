@@ -1,0 +1,29 @@
+---
+- hosts: hosts
+  become: yes
+  vars:
+    github_users:
+      # You can specify the `name`:
+      - name: CJerkins
+        groups: sudo
+    github_users_authorized_keys_exclusive: true
+  roles:
+    - geerlingguy.github-users
+    - init
+
+- hosts: hosts
+  vars:
+    docker_users:
+      - CJerkins
+      - ansible
+  roles:
+    - geerlingguy.docker
+
+
+- hosts: hosts
+  become: yes
+  vars:
+    zerotier_register_short_hostname: true
+  roles:
+    - ansible-role-zerotier
+    # - m4rcu5nl.zerotier-one
