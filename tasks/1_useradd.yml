@@ -45,10 +45,11 @@
 
 - name: Set authorized keys taken from url
   ansible.posix.authorized_key:
-    user: ansible
+    user: "{{ item }}"
     state: present
     key: "{{ sshkey_url }}"
-
+  with_items:
+    - '{{ init_setup_Ubuntu_users }}'
 
 
 

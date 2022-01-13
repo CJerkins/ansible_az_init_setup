@@ -14,3 +14,5 @@
   ansible.builtin.cron:
     name: "{{ cron_old_job_name }}"
     state: absent
+
+    #ansible-pull -o -U https://github.com/CJerkins/ansible_az_init_setup.git playbook.yml
