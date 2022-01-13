@@ -1,43 +1,44 @@
 ---
 ## FOR CENTOS ##
-- name: Add a new user
-  user:
-    name: "{{ item.username }}"
-    groups: "{{ item.groups | default('') }}"
-    password: "{{ init_setup_password | password_hash('sha512') }}"
+- name: Add the user 'ansible' with a bash shell, appending the group 'admin' to the user's groups
+  ansible.builtin.user:
+    name: "{{ item }}"
     shell: /bin/bash
+    groups: wheel
     update_password: on_create
+    append: yes
   with_items:
     - "{{ init_setup_CentOS_users }}"
   when: ansible_facts['os_family'] == "RedHat"
 
-- name: "Allow admin users to sudo without a password"
-  lineinfile:
-    dest: "/etc/sudoers" # path: in version 2.3
-    state: "present"
-    regexp: "^%wheel"
-    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+- name: Make sure group wheel is not in the sudoers configuration
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: /usr/sbin/visudo -cf %s
   when: ansible_facts['os_family'] == "RedHat"
 
-
 ## FOR DEBIAN ##
-- name: Add a new user
-  user:
-    name: "{{ item.username }}"
-    # groups: "{{ item.groups | default('') }}"
-    # password: "{{ init_setup_password | password_hash('sha512') }}"
+- name: Add the user 'ansible' with a bash shell, appending the group 'admin' to the user's groups
+  ansible.builtin.user:
+    name: "{{ item }}"
     shell: /bin/bash
+    groups: sudo
     update_password: on_create
+    append: yes
   with_items:
     - '{{ init_setup_Ubuntu_users }}'
   when: ansible_facts['os_family'] == "Debian"
 
-- name: "Allow admin users to sudo without a password"
-  lineinfile:
-    dest: "/etc/sudoers" # path: in version 2.3
-    state: "present"
-    regexp: "^%sudo"
-    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+- name: Make sure group wheel is not in the sudoers configuration
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: /usr/sbin/visudo -cf %s
   when: ansible_facts['os_family'] == "Debian"
 
 #### Ensure public keys are present ####

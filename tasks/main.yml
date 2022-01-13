@@ -1,11 +1,11 @@
-# - name: update servers
-#   import_tasks: 0_update.yml
+- name: update servers
+  import_tasks: 0_update.yml
 
-# - name: adding users
-#   import_tasks: 1_useradd.yml
+- name: adding users
+  import_tasks: 1_useradd.yml
 
-# - name: installing common packages
-#   import_tasks: 2_install.yml
+- name: installing common packages
+  import_tasks: 2_install.yml
 
 - name: setup ansible_pull_config
   import_tasks: 3_ansible_pull_config.yml

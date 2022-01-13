@@ -4,15 +4,9 @@ keep_packages_updated: true
 
 ## 1_adduser ##
 init_setup_CentOS_users:
-- username:
-    - ansible
-  groups: 
-    - "wheel"
+- ansible
 init_setup_Ubuntu_users:
-- username:
-    - ansible
-  groups: 
-    - "admin"
+- ansible
 sshkey_url: 
 
 # init_setup_ssh_public_key: 
