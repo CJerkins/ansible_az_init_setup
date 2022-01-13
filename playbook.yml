@@ -11,8 +11,8 @@
     cron_current_job_name: "current git ansible-pull repo location"
     cron_old_job_name: "old git ansible-pull repo location"
     cron_job: "date > ~/cron-test.txt" #"ansible-pull"
-  roles:
-    - ansible_az_init_setup
+  task:
+    - include: tasks/main.yml
 
 # - hosts: all
 #   become: yes
