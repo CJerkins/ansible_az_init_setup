@@ -1,36 +1,16 @@
 - hosts: localhost
   connection: local
-  become: yes
+  become: true
   vars:
     init_setup_additional_packages:
       - vim
       - htop
-    init_setup_Ubuntu_users:
+    users:
       - drok
+      - ansible
     sshkey_url: "https://github.com/CJerkins.keys"
     cron_current_job_name: "current git ansible-pull repo location"
     cron_old_job_name: "old git ansible-pull repo location"
     cron_job: "date > ~/cron-test.txt" #"ansible-pull"
   tasks:
     - include: tasks/main.yml
-
-# - hosts: all
-#   become: yes
-#   collections:
-#     - devsec.hardening
-#   roles:
-#     - os_hardening
-
-# - hosts: all
-#   become: yes
-#   vars_files:
-#     - roles/harden_linux_server/vars/sec.yml
-#   roles:
-#     - geerlingguy.security
-
-# - hosts: all
-#   become: yes
-#   vars_files:
-#     - roles/harden_linux_server/vars/fw.yml
-#   roles:
-#     - geerlingguy.firewall

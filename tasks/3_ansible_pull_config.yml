@@ -1,10 +1,10 @@
 ---
-- name: Ensure a job that runs at every 30 exists.
+- name: Ensure a job that runs at every 30 minutes exists.
   become_user: ansible
   ansible.builtin.cron:
     name: "{{ cron_current_job_name }}"
     user: ansible
-    minute: "*"
+    minute: "*/30"
     hour: "*"
     job: "{{ cron_job }}"
     # cron_file: ansible_pull_update

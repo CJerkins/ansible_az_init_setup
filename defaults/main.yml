@@ -3,9 +3,7 @@
 keep_packages_updated: true
 
 ## 1_adduser ##
-init_setup_CentOS_users:
-- ansible
-init_setup_Ubuntu_users:
+users:
 - ansible
 sshkey_url: 
 
@@ -17,7 +15,6 @@ sshkey_url:
 init_setup_common_packages:
   - chrony
   - git
-  - ansible
 init_setup_additional_packages: []
 
 ## 3_ansible_pull_config ##

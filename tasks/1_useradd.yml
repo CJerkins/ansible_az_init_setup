@@ -8,7 +8,7 @@
     update_password: on_create
     append: yes
   with_items:
-    - "{{ init_setup_CentOS_users }}"
+    - "{{ users }}"
   when: ansible_facts['os_family'] == "RedHat"
 
 - name: Make sure group wheel is not in the sudoers configuration
@@ -29,8 +29,8 @@
     update_password: on_create
     append: yes
   with_items:
-    - '{{ init_setup_Ubuntu_users }}'
-  when: ansible_facts['os_family'] == "Debian"
+    - '{{ users }}'
+  when: ansible_facts['os_family'] == "Debian" and "Ubuntu"
 
 - name: Make sure group wheel is not in the sudoers configuration
   ansible.builtin.lineinfile:
@@ -39,7 +39,7 @@
     regexp: '^%sudo'
     line: '%sudo ALL=(ALL) NOPASSWD: ALL'
     validate: /usr/sbin/visudo -cf %s
-  when: ansible_facts['os_family'] == "Debian"
+  when: ansible_facts['os_family'] == "Debian" and "Ubuntu"
 
 #### Ensure public keys are present ####
 
