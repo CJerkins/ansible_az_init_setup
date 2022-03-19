@@ -7,8 +7,8 @@
 - name: installing common packages
   import_tasks: 2_install.yml
 
-- name: setup ansible_pull_config
-  import_tasks: 3_ansible_pull_config.yml
+# - name: setup ansible_pull_config
+#   import_tasks: 3_ansible_pull_config.yml
 
 - name: adding moto
   import_tasks: 4_motd.yml
